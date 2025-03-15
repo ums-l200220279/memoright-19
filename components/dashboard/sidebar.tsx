@@ -89,11 +89,11 @@ export default function DashboardSidebar({ userRole }: { userRole: string }) {
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-64 p-0">
-          <SidebarContent pathname={pathname} items={items} isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
-        </SheetContent>
+          <SheetContent side="left" className="w-64 p-0">
+            <SidebarContent pathname={pathname} items={items} isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
+          </SheetContent>
       </Sheet>
-      <aside className="hidden md:flex w-64 flex-col border-r bg-background">
+      <aside className="hidden md:flex w-64 flex-col border-r bg-background dark:bg-gray-800">
         <SidebarContent pathname={pathname} items={items} isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
       </aside>
     </>
@@ -111,8 +111,22 @@ function SidebarContent({
       <motion.aside
         initial={{ width: 250 }}
         animate={{ width: isCollapsed ? 80 : 250 }}
-        className="bg-white border-r border-gray-200 overflow-hidden"
+        className="bg-white border-r border-gray-200 dark:bg-gray-800 overflow-hidden"
       >
+        {/* User Profile Section */}
+        <div className="p-4 flex items-center">
+          <img
+            src="/path-to-avatar.jpg" // Use dynamic avatar URL
+            alt="User Avatar"
+            className="w-10 h-10 rounded-full mr-3"
+          />
+          <div className="text-sm">
+            <p className="font-semibold text-white">John Doe</p>
+            <p className="text-gray-400">Doctor</p>
+          </div>
+        </div>
+
+        {/* Sidebar Header */}
         <div className="flex items-center justify-between p-4">
           <motion.span
             initial={{ opacity: 1 }}
@@ -125,14 +139,14 @@ function SidebarContent({
             {isCollapsed ? "→" : "←"}
           </Button>
         </div>
+
+        {/* Navigation Links */}
         <nav className="mt-5 px-2">
           {items.map((item) => (
             <Link key={item.name} href={item.href}>
               <Button
                 variant="ghost"
-                className={`w-full justify-start mb-2 ${
-                  pathname === item.href ? "bg-turquoise-100 text-turquoise-700" : "text-gray-600 hover:bg-gray-100"
-                }`}
+                className={`w-full justify-start mb-2 ${pathname === item.href ? "bg-turquoise-100 text-turquoise-700" : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600"}`}
               >
                 <item.icon className="h-5 w-5 mr-2" />
                 <motion.span initial={{ opacity: 1 }} animate={{ opacity: isCollapsed ? 0 : 1 }}>
@@ -142,6 +156,8 @@ function SidebarContent({
             </Link>
           ))}
         </nav>
+
+        {/* Footer Links */}
         <div className="absolute bottom-0 w-full p-4">
           <Link href="/dashboard/settings">
             <Button variant="ghost" className="w-full justify-start">
@@ -164,4 +180,3 @@ function SidebarContent({
     </ScrollArea>
   )
 }
-
