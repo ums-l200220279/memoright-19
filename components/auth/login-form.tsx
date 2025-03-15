@@ -86,7 +86,8 @@ export default function LoginForm() {
               <Checkbox
                 id="remember"
                 checked={rememberMe}
-                onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                onCheckedChange={(checked: boolean) => setRememberMe(checked)}
+                // onCheckedChange={(checked) => setRememberMe(checked as boolean)}
               />
               <Label htmlFor="remember" className="text-sm text-gray-600">
                 Remember me for 30 days

@@ -31,8 +31,17 @@ const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 }
+type MemberType = {
+  name: string;
+  role: string;
+  image: string;
+  bio?: string;
+  linkedin?: string;
+  email?: string;
+};
 
-function TeamMember({ member, index }) {
+function TeamMember({ member, index }: { member: MemberType; index: number }) {
+// function TeamMember({ member, index }) {
   const controls = useAnimation()
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true })
 
@@ -57,7 +66,7 @@ function TeamMember({ member, index }) {
             alt={member.name}
             width={300}
             height={300}
-            priority={index < 2} // Memprioritaskan loading gambar pertama
+            priority={index < 2} // Prioritize loading the first two images
             className="rounded-full w-32 h-32 mx-auto mb-4 object-cover"
           />
           <CardTitle className="text-center text-2xl font-bold">{member.name}</CardTitle>
@@ -118,4 +127,3 @@ export default function TeamsPage() {
     </div>
   )
 }
-

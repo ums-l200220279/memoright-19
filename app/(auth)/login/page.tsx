@@ -6,7 +6,7 @@ import Link from "next/link"
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <header className="w-full bg-white border-b py-4">
+      {/* <header className="w-full bg-white border-b py-4">
         <div className="container flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
             <Image src="/placeholder.svg?height=40&width=40" alt="Memoright Logo" width={40} height={40} />
@@ -16,7 +16,7 @@ export default function LoginPage() {
             Need an account? Sign up
           </Link>
         </div>
-      </header>
+      </header> */}
 
       <main className="flex-1 container py-12">
         <div className="flex flex-col lg:flex-row w-full max-w-6xl mx-auto items-center gap-12">
@@ -71,13 +71,13 @@ export default function LoginPage() {
         </div>
       </main>
 
-      <footer className="w-full bg-white border-t py-4">
+      {/* <footer className="w-full bg-white border-t py-4">
         <div className="container">
           <p className="text-sm text-gray-500 text-center">
             © {new Date().getFullYear()} Memoright. All rights reserved.
           </p>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }
