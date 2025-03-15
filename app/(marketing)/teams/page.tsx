@@ -31,6 +31,7 @@ const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 }
+
 type MemberType = {
   name: string;
   role: string;
@@ -41,7 +42,6 @@ type MemberType = {
 };
 
 function TeamMember({ member, index }: { member: MemberType; index: number }) {
-// function TeamMember({ member, index }) {
   const controls = useAnimation()
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true })
 
