@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import React, { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -24,27 +22,42 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [agreeTerms, setAgreeTerms] = useState(false)
+  const [role, setRole] = useState("patient")
+  const [error, setError] = useState("")
+  
   const searchParams = useSearchParams()
   const defaultRole = searchParams.get("role") || "patient"
-  const [role, setRole] = useState(defaultRole)
   const router = useRouter()
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    // Here you would typically handle the actual registration logic
-    // For now, we'll just simulate a delay and redirect
-    setTimeout(() => {
+    setError("")  // Reset error message before submitting
+
+    // Basic form validation
+    if (!firstName || !lastName || !email || !password) {
+      setError("Please fill in all the fields.")
       setIsLoading(false)
+      return
+    }
+
+    // Simulate an API call
+    try {
+      // Simulate a registration process (replace with actual API call)
+      await new Promise((resolve) => setTimeout(resolve, 1500)) // simulate delay
       router.push("/login")
-    }, 1500)
+    } catch (error) {
+      setError("Something went wrong, please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
       <Card className="border-0 shadow-none">
         <CardContent className="p-0">
-          <Tabs defaultValue={role} onValueChange={setRole} className="mb-6">
+          <Tabs defaultValue={defaultRole} onValueChange={setRole} className="mb-6">
             <TabsList className="grid grid-cols-3 mb-4">
               <TabsTrigger value="patient" className="flex items-center gap-2">
                 <User className="h-4 w-4" />
@@ -62,20 +75,17 @@ export default function RegisterForm() {
 
             <TabsContent value="patient">
               <p className="text-sm text-gray-600 mb-4">
-                Create a patient account to access personalized cognitive assessments, brain training exercises, and
-                track your progress.
+                Create a patient account to access personalized cognitive assessments, brain training exercises, and track your progress.
               </p>
             </TabsContent>
             <TabsContent value="caregiver">
               <p className="text-sm text-gray-600 mb-4">
-                Create a caregiver account to monitor your loved one's cognitive health, manage medications, and
-                coordinate care.
+                Create a caregiver account to monitor your loved one's cognitive health, manage medications, and coordinate care.
               </p>
             </TabsContent>
             <TabsContent value="doctor">
               <p className="text-sm text-gray-600 mb-4">
-                Create a healthcare provider account to access patient data, monitor cognitive health, and provide
-                remote care.
+                Create a healthcare provider account to access patient data, monitor cognitive health, and provide remote care.
               </p>
             </TabsContent>
           </Tabs>
@@ -83,9 +93,7 @@ export default function RegisterForm() {
           <form onSubmit={handleRegister} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">
-                  First Name
-                </Label>
+                <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">First Name</Label>
                 <Input
                   id="firstName"
                   value={firstName}
@@ -96,9 +104,7 @@ export default function RegisterForm() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-sm font-medium text-gray-700">
-                  Last Name
-                </Label>
+                <Label htmlFor="lastName" className="text-sm font-medium text-gray-700">Last Name</Label>
                 <Input
                   id="lastName"
                   value={lastName}
@@ -111,9 +117,7 @@ export default function RegisterForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                Email
-              </Label>
+              <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -127,9 +131,7 @@ export default function RegisterForm() {
 
             {role === "doctor" && (
               <div className="space-y-2">
-                <Label htmlFor="specialty" className="text-sm font-medium text-gray-700">
-                  Specialty
-                </Label>
+                <Label htmlFor="specialty" className="text-sm font-medium text-gray-700">Specialty</Label>
                 <Select>
                   <SelectTrigger id="specialty" className="h-11">
                     <SelectValue placeholder="Select specialty" />
@@ -146,9 +148,7 @@ export default function RegisterForm() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                Password
-              </Label>
+              <Label htmlFor="password" className="text-sm font-medium text-gray-700">Password</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -181,15 +181,12 @@ export default function RegisterForm() {
               />
               <Label htmlFor="terms" className="text-sm text-gray-600">
                 I agree to the{" "}
-                <Link href="/terms" className="text-turquoise-600 hover:underline">
-                  Terms of Service
-                </Link>{" "}
-                and{" "}
-                <Link href="/privacy" className="text-turquoise-600 hover:underline">
-                  Privacy Policy
-                </Link>
+                <Link href="/terms" className="text-turquoise-600 hover:underline">Terms of Service</Link> and{" "}
+                <Link href="/privacy" className="text-turquoise-600 hover:underline">Privacy Policy</Link>
               </Label>
             </div>
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             <Button
               type="submit"
@@ -231,4 +228,3 @@ export default function RegisterForm() {
     </motion.div>
   )
 }
-

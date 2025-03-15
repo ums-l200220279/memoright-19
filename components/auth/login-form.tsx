@@ -1,4 +1,4 @@
-"use client"
+"use client" // **Ditambahkan baris ini untuk menandakan komponen ini hanya dijalankan di sisi klien**
 
 import type React from "react"
 import Image from "next/image"
@@ -25,8 +25,6 @@ export default function LoginForm() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    // Here you would typically handle the actual login logic
-    // For now, we'll just simulate a delay and redirect
     setTimeout(() => {
       setIsLoading(false)
       router.push("/patient/dashboard")
@@ -87,7 +85,6 @@ export default function LoginForm() {
                 id="remember"
                 checked={rememberMe}
                 onCheckedChange={(checked: boolean) => setRememberMe(checked)}
-                // onCheckedChange={(checked) => setRememberMe(checked as boolean)}
               />
               <Label htmlFor="remember" className="text-sm text-gray-600">
                 Remember me for 30 days
@@ -134,4 +131,3 @@ export default function LoginForm() {
     </motion.div>
   )
 }
-
